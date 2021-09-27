@@ -31,7 +31,7 @@ const Login = () => {
   const verifyOtp = async () => {
     if (otp !== '') {
       try {
-        const response = await axios.post(`${endpoint}/verify`, {
+        const response = await axios.post(`https://guarded-coast-46849.herokuapp.com/verify`, {
           code: otp,
           num: value
         });
@@ -52,7 +52,7 @@ const Login = () => {
   const submitOptNumber = async () => {
     if (value !== "") {
       try {
-        const response = await axios.post(`${endpoint}/`, {
+        const response = await axios.post(`https://guarded-coast-46849.herokuapp.com/`, {
           value
         });
         if (response) {
