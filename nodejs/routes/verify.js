@@ -4,6 +4,7 @@ var router = express.Router();
 
 router.post('/verify', async (req, res) => {
     const { num, code } = req.body;
+    res.set('Access-Control-Allow-Origin', '*');
     const client = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
     let verificationResult;
     try {

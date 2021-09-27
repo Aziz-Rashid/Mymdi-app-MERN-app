@@ -4,7 +4,7 @@ const User = db.user;
 var router = express.Router();
 router.post('/userProfile', async (req, res) => {
     const { firstname, lastname, email, phone, wallet, username } = req.body.userInfo
-    console.log(req.body)
+    res.set('Access-Control-Allow-Origin', '*');
     const error = {}
     if (firstname == '' || lastname == '' || email == '' || phone == '' || wallet == '' || username == '') {
         return res.status(404).send({ message: "fill all fileds." });
@@ -35,6 +35,7 @@ router.post('/userProfile', async (req, res) => {
 });
 router.post('/getUserbyphone', async (req, res) => {
     const { phone } = req.body
+    res.set('Access-Control-Allow-Origin', '*');
     const userdata = await User.findOne({ phone })
     if (!userdata) {
         return res.status(404).send({ message: "User Not with phone ." });
@@ -45,6 +46,7 @@ router.post('/getUserbyphone', async (req, res) => {
 });
 router.post('/getUserbywallet', async (req, res) => {
     const { wallet } = req.body
+    res.set('Access-Control-Allow-Origin', '*');
     const userdata = await User.findOne({ wallet })
     if (!userdata) {
         return res.status(404).send({ message: "User Not with wallet ." });
@@ -55,6 +57,7 @@ router.post('/getUserbywallet', async (req, res) => {
 });
 router.put('/updateUser', async (req, res) => {
     const { data:{firstname,lastname,wallet,phone,email,username},id } = req.body
+    res.set('Access-Control-Allow-Origin', '*');
     const userdata = await User.findByIdAndUpdate(id,{
         firstname,lastname,wallet,phone,email,username
     })

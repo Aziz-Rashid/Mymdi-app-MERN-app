@@ -6,7 +6,6 @@ var cors = require('cors')
 var app = express();
 app.use(cors());
 app.use(fileupload());
-app.options('*', cors());
 app.use(bodyParser.json())
 var routes = require('./routes/sendOtp.js')
 var verify = require('./routes/verify.js');
@@ -25,6 +24,14 @@ db.mongoose
         console.error("Connection error", err);
         process.exit();
     });
+app.all('/*', function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+    next();
+});
+app.options('*', cors());
 app.use('/', routes);
 app.use('/', verify);
 app.use('/', userprofile);

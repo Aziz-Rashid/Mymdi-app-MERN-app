@@ -19,7 +19,6 @@ import {
 import { useHistory } from "react-router-dom";
 
 const Login = () => {
-  const { endpoint } = process.env
   const history = useHistory();
   const [value, setValue] = useState('')
   const [otp, setOtp] = useState('')
@@ -28,13 +27,20 @@ const Login = () => {
 
   const [togleMetamask, setTogleMetamask] = useState(false)
 
+  let axiosConfig = {
+    headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        "Access-Control-Allow-Origin": "*",
+    }
+  };
   const verifyOtp = async () => {
     if (otp !== '') {
       try {
-        const response = await axios.post(`https://guarded-coast-46849.herokuapp.com/verify`, {
+        const response = await axios.post(`https://mysterious-hamlet-61147.herokuapp.com/verify`, {
           code: otp,
           num: value
-        });
+        }
+        );
         if (response) {
           const data = await JSON.stringify(response)
           if (response.data.valid === true) {
@@ -52,9 +58,9 @@ const Login = () => {
   const submitOptNumber = async () => {
     if (value !== "") {
       try {
-        const response = await axios.post(`https://guarded-coast-46849.herokuapp.com/`, {
+        const response = await axios.post(`https://mysterious-hamlet-61147.herokuapp.com/`, {
           value
-        });
+        },axiosConfig);
         if (response) {
           setverify(true)
         }

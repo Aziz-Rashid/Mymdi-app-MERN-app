@@ -4,7 +4,6 @@ import { CButton } from '@coreui/react'
 import axios from 'axios';
 import UpdateUser from './updateUser';
 const UserProfile = () => {
-    const { endpoint } = process.env
     const logindata = localStorage.getItem('user')
     const logindatameta = localStorage.getItem('usermeta')
     const data = JSON.parse(logindata)
@@ -27,7 +26,7 @@ const UserProfile = () => {
     const getbyphone = async () => {
         if (logindata !== null) {
             try {
-                const response = await axios.post(`${endpoint}/getUserbyphone`, {
+                const response = await axios.post(`https://mysterious-hamlet-61147.herokuapp.com/getUserbyphone`, {
                     phone: data.data.to
                 });
                 if (response) {
@@ -38,7 +37,7 @@ const UserProfile = () => {
             }
         } else {
             try {
-                const response = await axios.post(`${endpoint}/getUserbywallet`, {
+                const response = await axios.post(`https://mysterious-hamlet-61147.herokuapp.com/getUserbywallet`, {
                     wallet: logindatameta
                 });
                 if (response) {
@@ -55,7 +54,7 @@ const UserProfile = () => {
     const saveUserInfo = async () => {
         if (userInfo.firstname !== "" && userInfo.lastname !== "" && userInfo.phone !== "" && userInfo.email !== "" && userInfo.wallet !== "" && userInfo.username !== "") {
             try {
-                const response = await axios.post(`${endpoint}/userProfile`, {
+                const response = await axios.post(`https://mysterious-hamlet-61147.herokuapp.com/userProfile`, {
                     userInfo
                 });
                 if (response) {
@@ -70,9 +69,8 @@ const UserProfile = () => {
     }
 
     const UpdateUsers = async (data) => {
-        console.log(data)
         try {
-            const response = await axios.put(`${endpoint}/updateUser`, {
+            const response = await axios.put(`https://mysterious-hamlet-61147.herokuapp.com/updateUser`, {
                 data,
                 id: data._id
             });
